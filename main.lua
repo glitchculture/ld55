@@ -20,6 +20,12 @@ local paused = false
 blur_bg = true
 yOffset = 0    
 
+local music = am.load_audio('240412c.ogg')
+win.scene:action("music", am.play(music, true, 1, 1))
+
+local speech = am.load_audio('sum_mon.ogg')
+win.scene:action("speech", am.play(speech, false, 1, 1))
+
 win.scene:action(function()
     if (not paused) then
         gameState:update()
@@ -52,19 +58,19 @@ win.scene:action(function()
 
     if gameState == title_screen then 
         if win:key_pressed("enter") then
+            win.scene:action("speech", am.play(speech, false, 1, 1))
             gameState = tutorial
         end
     elseif gameState == tutorial then
         if win:key_pressed("enter") then
+            win.scene:action("speech", am.play(speech, false, 1, 1))
             gameState = in_game
         end
     end       
 end)
 
-local music = am.load_audio('240412c.ogg')
-win.scene:action("music", am.play(music, true, 1, 1))
-
-local speech = am.load_audio('sum_mon.ogg')
-win.scene:action("speech", am.play(speech, false, 1, 1))
-
 background:action(1, action_color_cycle)
+
+reset_game = function()
+
+end
