@@ -32,6 +32,7 @@ level = 0
 level_completed = true
 
 text_level = am.translate(0, 270) ^ am.text(mysprites.ReggaeOne32, 'Level: ' .. tostring(level))
+text_enter = am.translate(0, -325) ^ am.scale(0.5, 0.5) ^ am.text(mysprites.ReggaeOne32, '')
 
 in_game = am.group()
 in_game:append(background)
@@ -77,6 +78,16 @@ in_game:action(function()
             -- add number to end of answer string, unless we reach limit
             answer = tonumber(tostring(answer) .. keyPressed)
         end
+
+        if answer ~= -1 then
+            in_game:remove(text_enter)
+            text_enter = am.translate(0, -325) ^ am.scale(0.5, 0.5) ^ am.text(mysprites.ReggaeOne32, 'press ENTER to Sum,mon')
+            in_game:append(text_enter)
+        else
+            in_game:remove(text_enter)
+            text_enter = am.translate(0, -325) ^ am.scale(0.5, 0.5) ^ am.text(mysprites.ReggaeOne32, '')
+            in_game:append(text_enter)   
+        end
     end
 
     if answer == -1 then
@@ -113,7 +124,10 @@ in_game:action(function()
         in_game:append(text_n_digit)
         in_game:remove(text_level)
         text_level = am.translate(0, 270) ^ am.text(mysprites.ReggaeOne32, 'Level: ' .. tostring(level))
-        in_game:append(text_level)        
+        in_game:append(text_level)
+        in_game:remove(text_enter)
+        text_enter = am.translate(0, -325) ^ am.scale(0.5, 0.5) ^ am.text(mysprites.ReggaeOne32, '')
+        in_game:append(text_enter)               
     end
 end)
 
