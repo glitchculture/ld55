@@ -14,9 +14,11 @@ require "game"
 
 win.scene = framebuffer.spriteNode
 gameState = title_screen
+-- gameState = tutorial
 
 local paused = false
 blur_bg = true
+yOffset = 0    
 
 win.scene:action(function()
     if (not paused) then
@@ -66,39 +68,3 @@ local speech = am.load_audio('sum_mon.ogg')
 win.scene:action("speech", am.play(speech, false, 1, 1))
 
 background:action(1, action_color_cycle)
-
-
-
-
-
-
-
-
-
-
--- win.scene = title_screen
-
-
-
-    -- if win:key_pressed("b") then
-    --     blur_bg = not blur_bg
-    -- end
-
--- win.scene = framebuffer.spriteNode
-
-
--- local track = am.track(music, true)
-
--- win.clear_color = vec4(0.3,0.5,0.5,1)
-
-        -- log('blur_bg: ' .. tostring(blur_bg))
-
-            -- background:action(1, action_bg_blur)
-            -- group:remove(background)
-            -- group:replace('bg', nil)   
-
-
-
-            -- background:action(1, action_bg_color_cycle)
-            -- group:append(background)
-            -- group:replace('bg', background) 

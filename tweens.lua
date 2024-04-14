@@ -13,14 +13,27 @@ action_color_cycle = coroutine.create(function(node)
     end
 end)
 
-action_position_cycle = coroutine.create(function(node)
+action_position_cycle_title = coroutine.create(function(node)
     while true do
         am.wait(am.tween(node, 1, {
-            position2d = vec2(0, 10)
+            position2d = vec2(0, 10 + yOffset)
         }, am.ease.sine
         ))
         am.wait(am.tween(node, 1, {
-            position2d = vec2(0, 0)
+            position2d = vec2(0, 0 + yOffset)
+        }, am.ease.sine
+    ))
+    end
+end)
+
+action_position_cycle_tutorial = coroutine.create(function(node)
+    while true do
+        am.wait(am.tween(node, 1, {
+            position2d = vec2(0, -190 + yOffset)
+        }, am.ease.sine
+        ))
+        am.wait(am.tween(node, 1, {
+            position2d = vec2(0, -200 + yOffset)
         }, am.ease.sine
     ))
     end
