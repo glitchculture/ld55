@@ -22,7 +22,10 @@ top_number = 0
 top_number_text_node = am.text(mysprites.ReggaeOne32, tostring(top_number))
 -- top_number_text_node:tag('n_top_number_text')
 text_n_digit = am.translate(-100, 90) ^ top_number_text_node
--- text_n:tag('text_n_node')
+text_n_line = am.line(vec2(20,-30),vec2(150,-30),3)
+
+answer = -1
+text_answer = am.translate(80, 0) ^ am.text(mysprites.ReggaeOne32, tostring(answer))
 
 level = 0
 level_completed = true
@@ -32,9 +35,11 @@ in_game:append(background)
 in_game:append(sigma)
 in_game:append(text_inGame)
 -- in_game:append(text_n_digit)
-in_game:append(text_formula)
+in_game:append(text_n_line)
+-- in_game:append(text_formula)
 in_game:append(text_iEquals)
 in_game:append(text_iEquals1)
+in_game:append(text_answer)
 in_game:append(framebuffer.rect)
 
 in_game:action(function()
@@ -44,7 +49,19 @@ in_game:action(function()
     local keyPressed = GetKeyPressed()
 
     if keyPressed ~= 999 then
-        level_completed = true
+        if keyPressed == 12345 then
+            -- evaluate!
+            -- level_completed = true
+        else
+            -- add number to end of answer string, unless we reach limit
+            
+        end
+    end
+
+    if answer == -1 then
+        in_game:remove(text_answer)
+        text_answer = am.translate(80, 0) ^ am.text(mysprites.ReggaeOne32, '#')
+        in_game:append(text_answer)   
     end
 
     if level_completed then
@@ -79,6 +96,8 @@ function GetKeyPressed()
         return 9
     elseif win:key_pressed("0") then
         return 0
+    elseif win:key_pressed("enter") then
+        return 12345
     else
         return 999    
     end       
