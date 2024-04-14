@@ -6,10 +6,22 @@ text_inGame = am.translate(0, 334) ^ am.text(mysprites.ReggaeOne32, top_text)
 text_iEquals = am.translate(-15, 0) ^ am.text(mysprites.ReggaeOne32, "i =")
 text_iEquals1 = am.translate(-100, -85) ^ am.text(mysprites.ReggaeOne32, "i = 1")
 
+text_formula = am.translate(90, 0)
+text_formula_n = am.translate(-190, 90) ^ am.text(mysprites.ReggaeOne32, "n")
+text_formula_top = am.translate(0,25) ^ am.text(mysprites.ReggaeOne32, "n(n+1)")
+-- text_formula_line = am.translate(0, 0) ^ am.text(mysprites.ReggaeOne32, "---------")
+text_formula_line = am.line(vec2(-65,-5),vec2(65,-5),3)
+text_formula_bottom = am.translate(0, -30) ^ am.text(mysprites.ReggaeOne32, "2")
+
+text_formula:append(text_formula_n)
+text_formula:append(text_formula_top)
+text_formula:append(text_formula_line)
+text_formula:append(text_formula_bottom)
+
 top_number = 0
 top_number_text_node = am.text(mysprites.ReggaeOne32, tostring(top_number))
 -- top_number_text_node:tag('n_top_number_text')
-text_n = am.translate(-100, 90) ^ top_number_text_node
+text_n_digit = am.translate(-100, 90) ^ top_number_text_node
 -- text_n:tag('text_n_node')
 
 level = 0
@@ -19,7 +31,8 @@ in_game = am.group()
 in_game:append(background)
 in_game:append(sigma)
 in_game:append(text_inGame)
-in_game:append(text_n)
+-- in_game:append(text_n_digit)
+in_game:append(text_formula)
 in_game:append(text_iEquals)
 in_game:append(text_iEquals1)
 in_game:append(framebuffer.rect)
@@ -39,9 +52,9 @@ in_game:action(function()
         level_completed = false
         top_number = GetNumber(level)
         -- log('top_number = ' .. tostring(top_number))
-        in_game:remove(text_n)
-        text_n = am.translate(-100, 90) ^ am.text(mysprites.ReggaeOne32, tostring(top_number))
-        in_game:append(text_n)
+        in_game:remove(text_n_digit)
+        text_n_digit = am.translate(-100, 90) ^ am.text(mysprites.ReggaeOne32, tostring(top_number))
+        in_game:append(text_n_digit)
     end
 end)
 
