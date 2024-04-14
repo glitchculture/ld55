@@ -15,7 +15,7 @@ require "game"
 win.scene = framebuffer.spriteNode
 gameState = title_screen
 -- gameState = tutorial
-gameState = in_game
+-- gameState = in_game
 -- gameState = example
 
 paused = false
@@ -34,9 +34,9 @@ win.scene:action(function()
         framebuffer.canvas:render(gameState)
     end
 
-    if win:key_pressed("p") then
-        paused = not paused
-    end
+    -- if win:key_pressed("p") then
+    --     paused = not paused
+    -- end
 
     if win:key_pressed("f") then
         if (win.mode == "fullscreen") then
