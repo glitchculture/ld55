@@ -1,6 +1,6 @@
 # ld55
 Ludum Dare 55 game by glitchculture
-
+Theme: Summoning
 
 Sum,mon
 -------
