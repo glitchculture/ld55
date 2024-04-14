@@ -1,41 +1,57 @@
-win = am.window{title = "Actions"}
+-- noglobals()
+require "window"
+require "BoundingBox"
+framebuffer = require "framebuffer"
+mysprites = require "mysprites"
+require "game"
+-- require "example"
 
-img = [[
-YYYYYYY
-YCCCCCY
-YCMMMCY
-YCMGMCY
-YCMMMCY
-YCCCCCY
-YYYYYYY
-]]
+win.scene = framebuffer.spriteNode
 
-squares = am.translate(-120, 0) ^ am.rotate(0) ^ am.scale(10) ^ am.sprite(img)
-ball = am.circle(vec2(120, 100), 50)
-line = am.line(vec2(-120, 0), vec2(120, 100), 4)
+local paused = false
+blur_bg = false
 
-group = am.group()
-group:append(line)
-group:append(squares)
-group:append(ball)
+win.scene:action(function()
+    if (not paused) then
+        group:update()
+        framebuffer.canvas:render(group)
+    end
 
-group:action(function()
-    local t = am.frame_time
+    if win:key_pressed("p") then
+        paused = not paused
+    end
 
-    squares"rotate".angle = t
-    squares"scale".scale2d = vec2(math.sin(t) * 5 + 8)
-    squares"sprite".color = vec4(math.fract(vec3(t, t * 3, t * 7)), 1)
+    if win:key_pressed("f") then
+        if (win.mode == "fullscreen") then
+            win.mode = "windowed"
+        else
+            win.mode = "fullscreen"
+        end
+    end
 
-    ball.color = vec4(
-        math.sin(t) * 0.5 + 0.5,
-        math.cos(t * 5) * 0.5 + 0.5,
-        math.sin(t * 13) * 0.5 + 0.5, 1)
-    ball.center = vec2(120, math.abs(math.cos(t)) * 300 - 200)
+    if win:key_pressed("escape") then
+        win:close()
+    end
 
-    line.point1 = squares"translate".position2d
-    line.point2 = ball.center
-    line.color = (1 - ball.color){a = 1}
-    line.thickness = (math.sin(t) + 2) * 4
+    if win:key_pressed("b") then
+        blur_bg = not blur_bg
+
+        if blur_bg then
+            -- background:action(1, action_bg_blur)
+            -- group:remove(background)
+            -- group:replace('bg', nil)      
+            background.hidden = true
+            background.paused = true
+        else
+            -- background:action(1, action_bg_color_cycle)
+            -- group:append(background)
+            -- group:replace('bg', background)
+            background.hidden = false
+            background.paused = false                        
+        end
+
+        -- log('blur_bg: ' .. tostring(blur_bg))
+    end
+
+    win.clear_color = vec4(0.3,0.5,0.5,1)
 end)
-
-win.scene = group

@@ -1,0 +1,5 @@
+title = "Sum,mon"
+author = "glitchculture"
+version = "1.0.0"
+copyright_message = "Copyright © 2024 glitchculture"
+luavm = "luajit"

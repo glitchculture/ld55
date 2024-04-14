@@ -1,0 +1,12 @@
+# ld55
+Ludum Dare 55 game by glitchculture
+
+
+Sum,mon
+-------
+
+Hey mon!  You wanna be a math wiz?  I thought so.
+
+You know what you gotta do to become a math whiz?  Sum, mon.  Sum.
+
+Take deez numbers for example.  What you gonna do with them?  Sum dem!  Sum dem, mon.
