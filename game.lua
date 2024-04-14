@@ -50,8 +50,17 @@ in_game:action(function()
 
     if keyPressed ~= 999 then
         if keyPressed == 12345 then
-            -- evaluate!
-            -- level_completed = true
+            if answer ~= -1 then    
+                -- evaluate!
+                if (answer == top_number * (top_number + 1) / 2) then
+                    level_completed = true
+                    win.scene:action("speech", am.play(speech, false, 1, 1))
+                else
+
+
+
+                end
+            end
         elseif keyPressed == 54321 then
             if string.len(tostring(answer)) > 0 then
                 answer = tonumber(tostring(answer):sub(1, -2))
@@ -72,6 +81,7 @@ in_game:action(function()
         end
     end
 
+
     if answer == -1 then
         in_game:remove(text_answer)
         text_answer = am.translate(80, 0) ^ am.text(mysprites.ReggaeOne32, '#')
@@ -85,6 +95,7 @@ in_game:action(function()
     if level_completed then
         level = level + 1
         level_completed = false
+        answer = -1
         top_number = GetNumber(level)
         -- log('top_number = ' .. tostring(top_number))
         in_game:remove(text_n_digit)
@@ -124,7 +135,7 @@ function GetKeyPressed()
 end
 
 function GetNumber(level)
-    return math.random(3 * level)
+    return math.random(2 * level)
 end
 
 background:action(1, action_color_cycle)

@@ -1,7 +1,7 @@
 -- noglobals()
 require "window"
 require "BoundingBox"
-require "tweens"
+require "coroutines"
 
 background = am.rect(-300, -300, 300, 300, vec4(1, 1, 1, 1))
 
@@ -18,14 +18,14 @@ gameState = title_screen
 gameState = in_game
 -- gameState = example
 
-local paused = false
+paused = false
 blur_bg = true
 yOffset = 0
 
-local music = am.load_audio('240412c.ogg')
+music = am.load_audio('240412c.ogg')
 win.scene:action("music", am.play(music, true, 1, 1))
 
-local speech = am.load_audio('sum_mon.ogg')
+speech = am.load_audio('sum_mon.ogg')
 win.scene:action("speech", am.play(speech, false, 1, 1))
 
 win.scene:action(function()

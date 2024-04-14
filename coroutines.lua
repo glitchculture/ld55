@@ -38,3 +38,16 @@ action_position_cycle_tutorial = coroutine.create(function(node)
     ))
     end
 end)
+
+action_show_formula = coroutine.create(function(node)
+    while true do
+        am.wait(am.tween(node, 1, {
+            position2d = vec2(0, -190 + yOffset)
+        }, am.ease.sine
+        ))
+        am.wait(am.tween(node, 1, {
+            position2d = vec2(0, -200 + yOffset)
+        }, am.ease.sine
+    ))
+    end
+end)
