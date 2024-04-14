@@ -1,7 +1,3 @@
--- win = am.window{title = "LD55"}
-
--- clear_color
-
 img = [[
 YYYYYYY
 YCCCCCY
@@ -12,24 +8,24 @@ YCCCCCY
 YYYYYYY
 ]]
 
-background = am.rect(-300, -300, 300, 300, vec4(1, 1, 1, 1))
--- background:tag('bg')
-
 squares = am.translate(-120, 0) ^ am.rotate(0) ^ am.scale(10) ^ am.sprite(img)
 ball = am.circle(vec2(120, 100), 50)
 line = am.line(vec2(-120, 0), vec2(120, 100), 4)
 
-text_node = am.translate(0, 150) ^ am.text(mysprites.ReggaeOne32, "Sum,mon")
+text_inGame = am.translate(0, 50) ^ am.text(mysprites.ReggaeOne32, "Sum,mon")
+-- text_press = am.translate(0, 0) ^ am.scale(0.5, 0.5)
+--     ^ am.text(mysprites.ReggaeOne32, "PRESS ENTER TO PLAY")
 
-group = am.group()
-group:append(background)
-group:append(line)
-group:append(squares)
-group:append(ball)
-group:append(text_node)
-group:append(framebuffer.rect)
+in_game = am.group()
+in_game:append(background)
+in_game:append(line)
+in_game:append(squares)
+in_game:append(ball)
+in_game:append(text_inGame)
+-- in_game:append(text_press)
+in_game:append(framebuffer.rect)
 
-group:action(function()
+in_game:action(function()
     local t = am.frame_time
 
     squares"rotate".angle = t
@@ -47,37 +43,64 @@ group:action(function()
     line.color = (1 - ball.color){a = 1}
     line.thickness = (math.sin(t) + 2) * 4
 
-    -- if win:key_pressed("escape") then
-    --     win:close()
-    -- end
+    in_game:append(text_inGame)
 end)
 
-action_bg_color_cycle = coroutine.create(function(node)
-    -- group:append(background)
+action_color_cycle = coroutine.create(function(node)
     while true do
         am.wait(am.tween(node, 5, {
             color = vec4(1, 0, 0, 1),
-            -- y2 = 100
         }))
         am.wait(am.tween(node, 5, {
             color = vec4(1, 1, 0, 1),
-            -- y2 = 0
         }))
         am.wait(am.tween(node, 5, {
             color = vec4(0, 1, 0, 1),
-            -- y2 = 0
         }))            
     end
 end)
+
+background:action(1, action_color_cycle)
+
+win.scene = in_game
+
+
+
+
+
+
+
+
+
+-- win = am.window{title = "LD55"}
+
+-- clear_color
+
+
+
+
+
+
+-- background:tag('bg')
+
+
+            -- y2 = 100
+
+
+    -- group:append(background)
+
+
+    -- if win:key_pressed("escape") then
+    --     win:close()
+    -- end
+
 
 -- action_bg_blur = function(node)
 -- --     node.color = vec4(0, 0, 0, 0)
 --     group:remove(background)
 -- end
 
-background:action(1, action_bg_color_cycle)
 
-win.scene = group
 
 -- win.clear_color:late_action(coroutine.create(function(node)
 --     while true do

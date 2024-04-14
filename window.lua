@@ -15,6 +15,7 @@ win = am.window
     -- lock_pointer = false,
     -- show_cursor = false,
     clear_color = vec4(0.5,0.5,0.5,1),
+    -- clear_color = vec4(0.3,0.5,0.5,1),
     -- letterbox = false,
     -- msaa_samples = 0,   --4,
     --projection = mat4(),
