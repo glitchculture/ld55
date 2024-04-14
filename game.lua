@@ -52,16 +52,34 @@ in_game:action(function()
         if keyPressed == 12345 then
             -- evaluate!
             -- level_completed = true
+        elseif keyPressed == 54321 then
+            if string.len(tostring(answer)) > 0 then
+                answer = tonumber(tostring(answer):sub(1, -2))
+            end
+
+            if answer == nil then
+                answer = -1
+            end
         else
             -- add number to end of answer string, unless we reach limit
-            
+            if string.len(tostring(answer)) < 5 then
+                if answer == -1 then
+                    answer = keyPressed
+                else
+                    answer = tonumber(tostring(answer) .. keyPressed)
+                end
+            end
         end
     end
 
     if answer == -1 then
         in_game:remove(text_answer)
         text_answer = am.translate(80, 0) ^ am.text(mysprites.ReggaeOne32, '#')
-        in_game:append(text_answer)   
+        in_game:append(text_answer)
+    else
+        in_game:remove(text_answer)
+        text_answer = am.translate(80, 0) ^ am.text(mysprites.ReggaeOne32, tostring(answer))
+        in_game:append(text_answer)       
     end
 
     if level_completed then
@@ -98,6 +116,8 @@ function GetKeyPressed()
         return 0
     elseif win:key_pressed("enter") then
         return 12345
+    elseif win:key_pressed("backspace") then
+        return 54321        
     else
         return 999    
     end       
