@@ -13,7 +13,7 @@ text_text3 = am.translate(0, -0) ^ am.scale(scale, scale) ^ am.text(mysprites.Re
 text_text4 = am.translate(0, -50) ^ am.scale(scale, scale) ^ am.text(mysprites.ReggaeOne32, text4)
 
 text_pressToPlay = am.translate(0, -200) ^ am.scale(1, 1)
-    ^ am.text(mysprites.ReggaeOne32, "PRESS ENTER TO PLAY")
+    ^ am.text(mysprites.ReggaeOne32, "press ENTER to Sum,mon")
 
 text_pressToPlay:action(action_position_cycle_tutorial)
 

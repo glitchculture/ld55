@@ -10,13 +10,13 @@ mysprites = require "mysprites"
 require "title"
 require "tutorial"
 require "game"
--- require "example"
+require "gameover"
 
 win.scene = framebuffer.spriteNode
 gameState = title_screen
 -- gameState = tutorial
 -- gameState = in_game
--- gameState = example
+-- gameState = gameover
 
 paused = false
 blur_bg = true
@@ -27,6 +27,8 @@ win.scene:action("music", am.play(music, true, 1, 1))
 
 speech = am.load_audio('sum_mon.ogg')
 win.scene:action("speech", am.play(speech, false, 1, 1))
+
+gameoverwait = false
 
 win.scene:action(function()
     if (not paused) then
@@ -68,11 +70,24 @@ win.scene:action(function()
             win.scene:action("speech", am.play(speech, false, 1, 1))
             gameState = in_game
         end
+    elseif gameState == gameover then
+        if gameoverwait and win:key_pressed("enter") then
+            win.scene:action("speech", am.play(speech, false, 1, 1))
+            -- reset_game()
+            gameState = in_game
+            gameoverwait = false
+        end
+        
+        gameoverwait = true
     end       
 end)
 
 background:action(1, action_color_cycle)
 
 reset_game = function()
-
+    top_number = 0
+    correct_answer = 0
+    answer = -1
+    level = 0
+    level_completed = true
 end

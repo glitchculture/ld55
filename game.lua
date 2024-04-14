@@ -61,7 +61,8 @@ in_game:action(function()
                     level_completed = true
                     win.scene:action("speech", am.play(speech, false, 1, 1))
                 else
-
+                    gameoverwait = false
+                    gameState = gameover
                 end
             end
         elseif keyPressed == 54321 then
