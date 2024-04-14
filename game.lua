@@ -1,64 +1,79 @@
-img = [[
-YYYYYYY
-YCCCCCY
-YCMMMCY
-YCMGMCY
-YCMMMCY
-YCCCCCY
-YYYYYYY
-]]
+sigma = am.translate(-100, 0) ^ am.sprite(mysprites.Greek_uc_sigma)
 
-squares = am.translate(-120, 0) ^ am.rotate(0) ^ am.scale(10) ^ am.sprite(img)
-ball = am.circle(vec2(120, 100), 50)
-line = am.line(vec2(-120, 0), vec2(120, 100), 4)
+top_text = "Sum,mon"
+text_inGame = am.translate(0, 334) ^ am.text(mysprites.ReggaeOne32, top_text)
 
-text_inGame = am.translate(0, 50) ^ am.text(mysprites.ReggaeOne32, "Sum,mon")
--- text_press = am.translate(0, 0) ^ am.scale(0.5, 0.5)
---     ^ am.text(mysprites.ReggaeOne32, "PRESS ENTER TO PLAY")
+text_iEquals = am.translate(-15, 0) ^ am.text(mysprites.ReggaeOne32, "i =")
+text_iEquals1 = am.translate(-100, -85) ^ am.text(mysprites.ReggaeOne32, "i = 1")
+
+top_number = 0
+top_number_text_node = am.text(mysprites.ReggaeOne32, tostring(top_number))
+-- top_number_text_node:tag('n_top_number_text')
+text_n = am.translate(-100, 90) ^ top_number_text_node
+-- text_n:tag('text_n_node')
+
+level = 0
+level_completed = true
 
 in_game = am.group()
 in_game:append(background)
-in_game:append(line)
-in_game:append(squares)
-in_game:append(ball)
+in_game:append(sigma)
 in_game:append(text_inGame)
--- in_game:append(text_press)
+in_game:append(text_n)
+in_game:append(text_iEquals)
+in_game:append(text_iEquals1)
 in_game:append(framebuffer.rect)
 
 in_game:action(function()
+    blur_bg = false
     local t = am.frame_time
 
-    squares"rotate".angle = t
-    squares"scale".scale2d = vec2(math.sin(t) * 5 + 8)
-    squares"sprite".color = vec4(math.fract(vec3(t, t * 3, t * 7)), 1)
+    local keyPressed = GetKeyPressed()
 
-    ball.color = vec4(
-        math.sin(t) * 0.5 + 0.5,
-        math.cos(t * 5) * 0.5 + 0.5,
-        math.sin(t * 13) * 0.5 + 0.5, 1)
-    ball.center = vec2(120, math.abs(math.cos(t)) * 300 - 200)
+    if keyPressed ~= 999 then
+        level_completed = true
+    end
 
-    line.point1 = squares"translate".position2d
-    line.point2 = ball.center
-    line.color = (1 - ball.color){a = 1}
-    line.thickness = (math.sin(t) + 2) * 4
-
-    in_game:append(text_inGame)
-end)
-
-action_color_cycle = coroutine.create(function(node)
-    while true do
-        am.wait(am.tween(node, 5, {
-            color = vec4(1, 0, 0, 1),
-        }))
-        am.wait(am.tween(node, 5, {
-            color = vec4(1, 1, 0, 1),
-        }))
-        am.wait(am.tween(node, 5, {
-            color = vec4(0, 1, 0, 1),
-        }))            
+    if level_completed then
+        level = level + 1
+        level_completed = false
+        top_number = GetNumber(level)
+        -- log('top_number = ' .. tostring(top_number))
+        in_game:remove(text_n)
+        text_n = am.translate(-100, 90) ^ am.text(mysprites.ReggaeOne32, tostring(top_number))
+        in_game:append(text_n)
     end
 end)
+
+function GetKeyPressed()
+    if win:key_pressed("1") then
+        return 1
+    elseif win:key_pressed("2") then
+        return 2
+    elseif win:key_pressed("3") then
+        return 3
+    elseif win:key_pressed("4") then
+        return 4
+    elseif win:key_pressed("5") then
+        return 5
+    elseif win:key_pressed("6") then
+        return 6
+    elseif win:key_pressed("7") then
+        return 7
+    elseif win:key_pressed("8") then
+        return 8
+    elseif win:key_pressed("9") then
+        return 9
+    elseif win:key_pressed("0") then
+        return 0
+    else
+        return 999    
+    end       
+end
+
+function GetNumber(level)
+    return math.random(3 * level)
+end
 
 background:action(1, action_color_cycle)
 
@@ -71,3 +86,10 @@ win.scene = in_game
 
 
 
+
+-- first level, single digit number results
+-- level 2: two digit number results
+
+-- nope:
+-- choose difficulty: 1-9
+-- Nah, mon

@@ -1,10 +1,3 @@
--- win = am.window{title = "LD55"}
-
-
--- clear_color
-
-
-
 img = [[
 YYYYYYY
 YCCCCCY
@@ -19,13 +12,20 @@ squares = am.translate(-120, 0) ^ am.rotate(0) ^ am.scale(10) ^ am.sprite(img)
 ball = am.circle(vec2(120, 100), 50)
 line = am.line(vec2(-120, 0), vec2(120, 100), 4)
 
-group = am.group()
-group:append(line)
-group:append(squares)
-group:append(ball)
-group:append(framebuffer.rect)
+text_example = am.translate(0, 50) ^ am.text(mysprites.ReggaeOne32, "Sum,mon")
+-- text_press = am.translate(0, 0) ^ am.scale(0.5, 0.5)
+--     ^ am.text(mysprites.ReggaeOne32, "PRESS ENTER TO PLAY")
 
-group:action(function()
+example = am.group()
+example:append(background)
+example:append(line)
+example:append(squares)
+example:append(ball)
+example:append(text_example)
+-- example:append(text_press)
+example:append(framebuffer.rect)
+
+example:action(function()
     local t = am.frame_time
 
     squares"rotate".angle = t
@@ -43,9 +43,9 @@ group:action(function()
     line.color = (1 - ball.color){a = 1}
     line.thickness = (math.sin(t) + 2) * 4
 
-    if win:key_pressed("escape") then
-        win:close()
-    end
+    example:append(text_example)
 end)
 
-win.scene = group
+background:action(1, action_color_cycle)
+
+win.scene = example

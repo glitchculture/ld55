@@ -15,10 +15,12 @@ require "game"
 win.scene = framebuffer.spriteNode
 gameState = title_screen
 -- gameState = tutorial
+gameState = in_game
+-- gameState = example
 
 local paused = false
 blur_bg = true
-yOffset = 0    
+yOffset = 0
 
 local music = am.load_audio('240412c.ogg')
 win.scene:action("music", am.play(music, true, 1, 1))

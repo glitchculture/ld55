@@ -1,1 +1,2 @@
-amulet pack -png mysprites.png -lua mysprites.lua ReggaeOne.ttf@32
+rm mysprites.png
+amulet pack -png mysprites.png -lua mysprites.lua *.png ReggaeOne.ttf@32
